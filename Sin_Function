@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication4
+{
+    class Program
+    {
+        static long jiecheng(long m)
+        {
+            long i, s = 1;
+           
+            for (i = 1; i <= m; i++)//for循环求累积 
+                s = s * i;
+            return s;
+        }
+
+        static double MySin(double x, int n)
+        {
+            //用泰勒实现sin函数
+            //定义m控制精度
+            int m = 1;
+            //定义M1为-1的次方 M2为x的次方
+            int M1 = m - 1 , M2 = 2 * m - 1;
+            //利用精度循环才实现无限逼近
+            double sum = 0;
+            double res = 0;
+            while (m <= n)
+            {
+                sum = ((double)Math.Pow(x, M2) / jiecheng(M2));
+               
+                if (m %2== 0)
+                {
+                    sum = (-1) * sum;
+                }
+
+                m++;
+                M1 = m - 1;
+                M2 = 2 * m - 1;
+                res += sum;
+                //Console.WriteLine("阶乘的结果{0}",jiecheng(M2));
+                //Console.WriteLine("sum的结果{0}", sum);
+            }
+            return res;
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine(MySin(2, 19));
+            Console.WriteLine(Math.Sin(2));
+            Console.ReadKey();
+        }
+    }
+}
